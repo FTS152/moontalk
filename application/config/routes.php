@@ -50,15 +50,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 
-$route['login/check/(:any)'] = 'Login/check';
-$route['login/check'] = 'Login/check';
-$route['login/logout/(:any)'] = 'Login/logout';
-$route['login/logout'] = 'Login/logout';
-$route['login/(:any)'] = 'Login/index';
-$route['login'] = 'Login/index';
-
-$route['chat/(:any)'] = 'Chat/index';
-$route['chat'] = 'Chat/index';
 
 $route['default_controller'] = 'Login/index';
 $route['404_override'] = '';

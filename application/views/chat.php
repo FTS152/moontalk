@@ -106,6 +106,9 @@
             var mymessage = $('#msgbox').val(); //get message text
             var myname = '<?php echo $username;?>'; //get user name
 
+            var url = new URL(location.href);
+            var myroom = url.searchParams.get('id'); //get room id
+
             if(myname == ""){ //empty name?
                 alert('尚未登入');
                 window.location = "<?php echo site_url().'/login'?>";
@@ -120,6 +123,7 @@
             var msg = {
                 type : 'usermsg',
                 message: mymessage,
+                room: myroom,
                 name: myname,
                 color : '<?php echo $user_colour; ?>'
             };
@@ -141,10 +145,13 @@
             var ucolor = msg.color; //color
             if(type == 'usermsg')
             {
+                var current_room_url = new URL(location.href);
+                var current_room = current_room_url.searchParams.get('id'); //get room id                
                 var uname = msg.name; //user name
                 var umsg = msg.message; //message text
+                var uroom = msg.room;
                 var umsg=replace_em(umsg);//QQ表情 字串轉換
-                if(uname && umsg){
+                if(uname && umsg && uroom==current_room){
                     $('#chatmessage').append("<div><span class=\"user_name\" style='color:#"+ucolor+"'>"+uname+"</span> : <span class=\"user_message\">"+umsg+"</span></div>");
                 }
             }
