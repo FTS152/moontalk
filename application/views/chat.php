@@ -44,11 +44,6 @@
                 <div class="widgetbox uncollapsible">
                     <div class="title"><h4>線上使用者</h4></div>
                     <div class="widgetcontent nopadding">
-                        <!--
-                                                        <div class="chatsearch">
-                                                            <input type="text" name="" value="Search" />
-                                                        </div>
-                                                        -->
                         <ul class="contactlist">
                         </ul>
                     </div><!--widgetcontent-->
@@ -59,8 +54,7 @@
     </div><!-- centercontent -->
 </div>
 
-<!--  使用 QQFace 表情符號 JS-->
-<script type="text/javascript" src="<?php echo base_url().'js/jquery.qqFace.js';?>"></script>
+<script type="text/javascript"></script>
 <script language="javascript" type="text/javascript">
     $(document).ready(function(){
         //create a new WebSocket object.(建立socket物件)
@@ -71,9 +65,12 @@
                 //確認socket連結是 open 狀態
                 //取得名稱
                 var name = '<?php echo $username;?>';
+                var url = new URL(location.href);
+                var myroom = url.searchParams.get('hash'); //get hash
+
                 if(name.trim()=='' || name.trim()==null || name.trim()==[] || typeof(name) =='undefined'){
                     alert('尚未登入');
-                    window.location = "<?php echo site_url().'/index.php/login'?>";
+                    window.location = "<?php echo site_url().'/login'?>";
                     return false;
                 }else{
                     $('#chatmessage').append("<div class=\"system_msg\">連結中......</div>"); //notify user
@@ -107,7 +104,7 @@
             var myname = '<?php echo $username;?>'; //get user name
 
             var url = new URL(location.href);
-            var myroom = url.searchParams.get('id'); //get room id
+            var myroom = url.searchParams.get('hash'); //get hash
 
             if(myname == ""){ //empty name?
                 alert('尚未登入');
@@ -146,7 +143,7 @@
             if(type == 'usermsg')
             {
                 var current_room_url = new URL(location.href);
-                var current_room = current_room_url.searchParams.get('id'); //get room id                
+                var current_room = current_room_url.searchParams.get('hash'); //get hash                
                 var uname = msg.name; //user name
                 var umsg = msg.message; //message text
                 var uroom = msg.room;

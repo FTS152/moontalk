@@ -60,7 +60,7 @@ class Login extends CI_Controller {
         );
         $this->session->set_userdata($session_data);
 
-        header("location:".site_url()."/chat");
+        header("location:".site_url()."/room");
     }
 
     /**
