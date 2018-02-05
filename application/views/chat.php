@@ -69,7 +69,7 @@
 
                 if(name.trim()=='' || name.trim()==null || name.trim()==[] || typeof(name) =='undefined'){
                     alert('尚未登入');
-                    window.location = "<?php echo site_url().'/login'?>";
+                    window.location = "<?php echo site_url().'login'?>";
                     return false;
                 }else{
                     $('#chatmessage').append("<div class=\"system_msg\">連結中......</div>"); //notify user
@@ -90,6 +90,7 @@
 
         $('#send-btn').click(function(){ //use clicks message send button
             message_send();
+            $('#msgbox').val('');
         });
 
         $('#msgbox').keypress(function(event){ //按下Enter 自動送出訊息
@@ -108,7 +109,7 @@
 
             if(myname == ""){ //empty name?
                 alert('尚未登入');
-                window.location = "<?php echo site_url().'/login'?>";
+                window.location = "<?php echo site_url().'login'?>";
                 return false;
             }
             if(mymessage == ""){ //emtpy message?
@@ -129,10 +130,20 @@
         }
 
         $('#leave-btn').click(function(){
+            var myname = '<?php echo $username;?>'; //get user name
+            var url = new URL(location.href);
+            var myroom = url.searchParams.get('hash'); //get hash
+            var msg = {
+                type : 'join_name',
+                room: myroom,
+                name: myname,
+                color : '<?php echo $user_colour; ?>'
+            };
+            //convert and send data to server (連接傳送數據)
+            websocket.send(JSON.stringify(msg));
             websocket.close();
             $('#chatmessage').append("<div class=\"system_msg\">您已離線...</div>");
-
-            window.location = "<?php echo site_url().'/login/logout'?>";
+            window.location = "<?php echo site_url().'login/logout'?>";
         });
 
         //#### Message received from server? (view端接收server數據時觸發事件)
@@ -159,7 +170,7 @@
                     //更新名單
                     if(msg.info == 'enter'){
                         var umsg = msg.message; //message text
-                        //$('#chatmessage').append("<div class=\"system_msg\">"+umsg+"</div>");
+                        $('#chatmessage').append("<div class=\"system_msg\">"+umsg+"</div>");
                     }
 
                     //更新名單
@@ -170,7 +181,7 @@
                         var join_list = msg.join_list; //join list
                         $('.contactlist').empty();
                         for(var index in join_list) {
-                            if(join_list[index].join_name){
+                            if(join_list[index].join_name&&join_list[index].room==current_room){
                                 var add_html = "<li class='online new'><span style='color:#"+join_list[index].color+"'>"+join_list[index].join_name+"</span></li>";
                                 $('.contactlist').append(add_html);
                             }
@@ -182,13 +193,13 @@
                 {
                     var join_name = msg.join_name; //join name
                     var join_list = msg.join_list; //join list
-
+                    if(join_name)
                     $('#chatmessage').append("<div class=\"system_msg\">"+join_name+"連線成功</div>");
 
                     //更新名單
                     $('.contactlist').empty();
                     for(var index in join_list) {
-                        if(join_list[index].join_name){
+                        if(join_list[index].join_name&&join_list[index].room==current_room){
                             var add_html = "<li class='online new'><span style='color:#"+join_list[index].color+"'>"+join_list[index].join_name+"</span></li>";
                             $('.contactlist').append(add_html);
                         }
@@ -198,7 +209,7 @@
         };
 
         websocket.onerror	= function(ev){$('#chatmessage').append("<div class=\"system_error\">Error Occurred - "+ev.data+"</div>");}; //與server連接發生錯誤時
-        websocket.onclose 	= function(ev){$('#chatmessage').append("<div class=\"system_msg\">Connection Closed</div>");};  //server被關閉時
+        websocket.onclose 	= function(ev){$('#chatmessage').append("<div class=\"system_msg\">Server Closed</div>");};  //server被關閉時
 
     });
 </script>
