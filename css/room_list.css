@@ -1,0 +1,85 @@
+body{
+	margin 0;
+	background-color: black;
+}
+.showRoomListBlock{
+	width: 60%;
+	margin-left: 5%;
+	margin-top: 55px;
+}
+.roomListBar{
+	text-align: center;
+	border: 5px #56bfc1 solid;
+	border-bottom-width: 0px; 	
+	background-color: gray;
+}
+.roomListBar h1{
+	display: inline;
+	font-family: monospace,Microsoft JhengHei;
+	font-size: 25px;
+	color: black;
+	padding: 0 90px;
+}
+.showRoomList{	
+	height: 520px;
+	border: 5px #56bfc1 solid;
+	border-top-width: 0px;
+	border-bottom-width: 0px;
+	background-color: white;
+	padding: 10px;
+}
+.roomTable .list{
+	margin: 4px;
+	height: 20px;
+	border: 4px green solid;
+	padding: 5px;
+}
+.list .item1{
+	text-align: center;
+	width: 33.3333%;
+	float: left;
+}	
+.list .item2{
+	text-align: center;
+	width: 33.3333%;	
+	float: left;
+}
+.list .item3{
+	text-align: center;
+	width: 33.3333%;	
+	float: left;
+}
+.item1 h1{
+	font-family: monospace,Microsoft JhengHei;
+	font-size: 20px;	
+	display: inline;
+}
+.item2 h1{
+	font-family: monospace,Microsoft JhengHei;
+	font-size: 20px;	
+	display: inline;
+}
+.item3 h1{
+	font-family: monospace,Microsoft JhengHei;
+	font-size: 20px;	
+	display: inline;
+}
+.addRoomBar{
+	text-align: center;
+	border:  5px #56bfc1 solid;
+	border-top-width: 0px;
+	background-color: gray;
+}
+.roomAdd:link{text-decoration: none;color: white;}
+.roomAdd:visited{text-decoration: none;color: white;}
+.roomAdd:hover{text-decoration: none;filter: glow(color: yellow,strength:10);color: yellow;text-shadow: 1px 1px 10px yellow;}
+.roomAdd:active{text-decoration: none;color: white;}
+.roomAdd img{
+	display: inline;
+}
+.roomAdd h1{
+	display: inline;
+	padding: 0 10px;
+	font-family: Microsoft JhengHei;
+	font-size: 25px;
+}
