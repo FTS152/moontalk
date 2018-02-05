@@ -30,7 +30,6 @@
                     <span class="inputbox" style="width:70%;float: left;">
                         <input type="text" id="msgbox" name="msgbox"  />
                     </span>
-                    <button id="emotion" class="btn btn-success" style="float: left;">插入表情</button>
                     <button id="send-btn" class="btn btn-warning" style="float: left;margin-left: 20px;">送出</button>
                     <button class="btn btn-danger" id="leave-btn" style="float: left;margin-left: 20px;">登出/離開</button>
                 </div>
@@ -66,7 +65,7 @@
                 //取得名稱
                 var name = '<?php echo $username;?>';
                 var url = new URL(location.href);
-                var myroom = url.searchParams.get('hash'); //get hash
+                var room = url.searchParams.get('hash'); //get hash
 
                 if(name.trim()=='' || name.trim()==null || name.trim()==[] || typeof(name) =='undefined'){
                     alert('尚未登入');
@@ -78,9 +77,9 @@
                     //prepare json data
                     var msg = {
                         type : 'join_name',
+                        room: room ,
                         join_name: name,
                         color : '<?php echo $user_colour; ?>',
-                        sex : '<?php echo $sex;?>',
                         head : '<?php echo $head;?>',
                     };
                     //convert and send data to server (連接傳送數據)
@@ -96,6 +95,7 @@
         $('#msgbox').keypress(function(event){ //按下Enter 自動送出訊息
             if(event.keyCode==13){
                 message_send();
+                $('#msgbox').val(''); //reset text
             }
         });
 
@@ -137,95 +137,68 @@
 
         //#### Message received from server? (view端接收server數據時觸發事件)
         websocket.onmessage = function(ev) {
+            var current_room_url = new URL(location.href);
+            var current_room = current_room_url.searchParams.get('hash'); //get hash
+
             var msg = JSON.parse(ev.data); //PHP sends Json data
             var type = msg.type; //message type
             var ucolor = msg.color; //color
-            if(type == 'usermsg')
-            {
-                var current_room_url = new URL(location.href);
-                var current_room = current_room_url.searchParams.get('hash'); //get hash                
-                var uname = msg.name; //user name
-                var umsg = msg.message; //message text
-                var uroom = msg.room;
-                var umsg=replace_em(umsg);//QQ表情 字串轉換
-                if(uname && umsg && uroom==current_room){
-                    $('#chatmessage').append("<div><span class=\"user_name\" style='color:#"+ucolor+"'>"+uname+"</span> : <span class=\"user_message\">"+umsg+"</span></div>");
-                }
-            }
-            if(type == 'system')
-            {
-                //更新名單
-                if(msg.info == 'enter'){
+            var uroom = msg.room;
+            if(uroom==current_room){ //only show messages in the same room
+                if(type == 'usermsg')
+                {
+                    
+                    var uname = msg.name; //user name
                     var umsg = msg.message; //message text
-                    //$('#chatmessage').append("<div class=\"system_msg\">"+umsg+"</div>");
+                    if(uname && umsg){
+                        $('#chatmessage').append("<div><span class=\"user_name\" style='color:#"+ucolor+"'>"+uname+"</span> : <span class=\"user_message\">"+umsg+"</span></div>");
+                    }
+                }
+                if(type == 'system')
+                {
+                    //更新名單
+                    if(msg.info == 'enter'){
+                        var umsg = msg.message; //message text
+                        //$('#chatmessage').append("<div class=\"system_msg\">"+umsg+"</div>");
+                    }
+
+                    //更新名單
+                    if(msg.info == 'leave'){
+                        var umsg = msg.message; //message text
+                        $('#chatmessage').append("<div class=\"system_msg\">"+umsg+"</div>");
+
+                        var join_list = msg.join_list; //join list
+                        $('.contactlist').empty();
+                        for(var index in join_list) {
+                            if(join_list[index].join_name){
+                                var add_html = "<li class='online new'><span style='color:#"+join_list[index].color+"'>"+join_list[index].join_name+"</span></li>";
+                                $('.contactlist').append(add_html);
+                            }
+                        }
+                    }
                 }
 
-                //更新名單
-                if(msg.info == 'leave'){
-                    var umsg = msg.message; //message text
-                    $('#chatmessage').append("<div class=\"system_msg\">"+umsg+"</div>");
-
+                if(type == 'join_name')
+                {
+                    var join_name = msg.join_name; //join name
                     var join_list = msg.join_list; //join list
+
+                    $('#chatmessage').append("<div class=\"system_msg\">"+join_name+"連線成功</div>");
+
+                    //更新名單
                     $('.contactlist').empty();
                     for(var index in join_list) {
                         if(join_list[index].join_name){
-                            if(join_list[index].head == ''){
-                                var img_path = '<?php echo base_url()."images/thumbs/head/unknown.png"; ?>';
-                            }else{
-                                var img_path = '<?php echo base_url()."images/thumbs/head/"; ?>'+join_list[index].head+'.jpg';
-                            }
-                            var add_html = "<li class='online new'><a href=''><img src='"+img_path+"' alt=''><span style='color:#"+join_list[index].color+"'>"+join_list[index].join_name+"</span></a></li>";
+                            var add_html = "<li class='online new'><span style='color:#"+join_list[index].color+"'>"+join_list[index].join_name+"</span></li>";
                             $('.contactlist').append(add_html);
                         }
                     }
                 }
-            }
-
-            if(type == 'join_name')
-            {
-                var join_name = msg.join_name; //join name
-                var join_list = msg.join_list; //join list
-
-                $('#chatmessage').append("<div class=\"system_msg\">"+join_name+"連線成功</div>");
-
-                //更新名單
-                $('.contactlist').empty();
-                for(var index in join_list) {
-                    if(join_list[index].join_name){
-                        if(join_list[index].head == ''){
-                            var img_path = '<?php echo base_url()."images/thumbs/head/unknown.png"; ?>';
-                        }else{
-                            var img_path = '<?php echo base_url()."images/thumbs/head/"; ?>'+join_list[index].head+'.jpg';
-                        }
-                        var add_html = "<li class='online new'><a href=''><img src='"+img_path+"' alt=''><span style='color:#"+join_list[index].color+"'>"+join_list[index].join_name+"</span></a></li>";
-                        $('.contactlist').append(add_html);
-                    }
-                }
-            }
-
-            $('#msgbox').val(''); //reset text
+            } 
         };
 
         websocket.onerror	= function(ev){$('#chatmessage').append("<div class=\"system_error\">Error Occurred - "+ev.data+"</div>");}; //與server連接發生錯誤時
         websocket.onclose 	= function(ev){$('#chatmessage').append("<div class=\"system_msg\">Connection Closed</div>");};  //server被關閉時
-
-
-        <!--  QQFace 表情符號 -->
-        <!--  設定qqFace  參數 -->
-        $('#emotion').qqFace({
-            id : 'facebox', //表情盒子的ID
-            assign:'msgbox', //對話輸入input控件ID
-            path:'<?php echo base_url().'images/face/';?>'	//表情存放的路径
-        });
-
-        //查看结果(表情符號轉換)
-        function replace_em(str){
-            str = str.replace(/\</g,'&lt;');
-            str = str.replace(/\>/g,'&gt;');
-            str = str.replace(/\n/g,'<br/>');
-            str = str.replace(/\[em_([0-9]*)\]/g,'<img src="<?php echo base_url().'images/face';?>/$1.gif" border="0" />');
-            return str;
-        }
 
     });
 </script>
