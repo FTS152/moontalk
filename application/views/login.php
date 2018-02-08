@@ -50,14 +50,14 @@
         <div class="loginbox">
             <div id="settingUserIcon">   
                 <div id="setIcon" title="請選擇你想要的頭像">
-                    <img class="selpicture" src="./img_source/login/img_1.jpg" onclick="openImg('1')";>
-                    <img class="selpicture" src="./img_source/login/img_2.jpg" onclick="openImg('2');">
-                    <img class="selpicture" src="./img_source/login/img_3.jpg" onclick="openImg('3');">
+                    <img class="selpicture" src="./img_source/login/img_1.png" onclick="openImg('1')";>
+                    <img class="selpicture" src="./img_source/login/img_2.png" onclick="openImg('2');">
+                    <img class="selpicture" src="./img_source/login/img_3.png" onclick="openImg('3');">
                 </div>
                 <div id="currentIcons">
-                    <img id="1" class="picture" style="display: inline;" src="./img_source/login/img_1.jpg">
-                    <img id="2" class="picture" style="display: none;"   src="./img_source/login/img_2.jpg">
-                    <img id="3" class="picture" style="display: none;"    src="./img_source/login/img_3.jpg">
+                    <img id="1" class="picture" style="display: inline;" src="./img_source/login/img_1.png">
+                    <img id="2" class="picture" style="display: none;"   src="./img_source/login/img_2.png">
+                    <img id="3" class="picture" style="display: none;"    src="./img_source/login/img_3.png">
                 </div>                                 
             </div>
 
