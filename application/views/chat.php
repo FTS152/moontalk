@@ -2,7 +2,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>OOXX.Talk</title>
+    <title>MoonTalk</title>
     <!-- 最新編譯和最佳化的 CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?php echo base_url().'css/style.default.css';?>" type="text/css" />

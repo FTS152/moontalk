@@ -44,8 +44,8 @@
     </head>
 
     <body onload="document.getElementById('user').focus();">                
-        <div class="loginlogo">
-            <img src="../../img_source/login/moonTalkLogo.png" alt="LCS_Logo">
+        <div class="bg">
+            <img src="../../img_source/login/loginBG.png" alt="loginBG">
         </div>               
         <div class="loginbox">
             <div id="settingUserIcon">   
@@ -63,7 +63,7 @@
 
             <div class="user">
                 <form name="user" action="<?php echo site_url().'/login/check';?>" onsubmit="" method="post">
-                    <hc>USERNAME:</hc>
+                    <hc>使用者名稱:</hc>
                     <input type="text" name="user" id="user">
                     <input type="hidden" name="head" value="1"> <!-- 頭像先藏起來-->
                     <input type="submit" name="enter" value="加入會議室">
