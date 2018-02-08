@@ -177,6 +177,21 @@
             window.location = "<?php echo site_url().'login/logout'?>";
         });
 
+        $(window).unload(function(){
+            var myname = '<?php echo $username;?>'; //get user name
+            var url = new URL(location.href);
+            var myroom = url.searchParams.get('id'); //get id
+            var msg = {
+                type : 'join_name',
+                room: myroom,
+                name: myname,
+                color : '<?php echo $user_colour; ?>'
+            };
+            //convert and send data to server (連接傳送數據)
+            websocket.send(JSON.stringify(msg));
+            websocket.close();
+        });
+
         //#### Message received from server? (view端接收server數據時觸發事件)
         websocket.onmessage = function(ev) {
             var current_room_url = new URL(location.href);

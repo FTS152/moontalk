@@ -15,11 +15,12 @@
 			<div class="roomTable">		
 							
 				<?php foreach ($data as $value) {
-					echo '<div class="list"><div class="item1"><h1>'.$value->{'room_id'}
-			  					.'</h1></div><div class="item2"><h1>'.anchor('room/check/?id='.$value->{'room_id'},$value->{'room_name'})
-			  					.'</h1></div><div class="item3"><h1>'
-									.$value->{'room_lock'}
-			  					.'</h1></div></div>';
+					echo '<div class="list"><div class="item1"><h1>'.$value->{'room_id'}.'</h1></div>';
+			  		if($value->{'room_lock'})
+			  			echo '<div class="item2"><h1>'.anchor('chat/?id='.$value->{'room_id'},htmlentities($value->{'room_name'})).'</h1></div>';
+			  		else
+			  			echo '<div class="item2"><h1>'.anchor('chat/?id='.$value->{'room_id'},htmlentities($value->{'room_name'})).'</h1></div>';
+			  		echo '<div class="item3"><h1>'.$value->{'room_lock'}.'</h1></div></div>';
 				}
 				?>
 				<div class="list">
@@ -40,4 +41,11 @@
 	<div class="notice"></div>
 </body>
 </html>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script>
+$('.item2').click(function(){
+		var pass = prompt('請輸入密碼');
+  		location.href="room?value=" pass;
+</script>
 
