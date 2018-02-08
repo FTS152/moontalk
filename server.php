@@ -36,8 +36,6 @@ while (true) {
 		perform_handshaking($header, $socket_new, $host, $port); //perform websocket handshake (寫數據至socket, 從 HTTP 協定升級為 WebSocket 協定)
 		
 		socket_getpeername($socket_new, $ip); //get ip address of connected socket
-		$response = mask(json_encode(array('type'=>'system','info'=>'enter', 'message'=>$ip.' 已連線'))); //prepare json data (mask:包裹資料成為二進制字串)
-		send_message($response); //notify all users about new connection (發送至每個socket)
 		
 		//make room for new socket
 		$found_socket = array_search($socket, $changed);//搜索socket在changed陣列的index
@@ -96,9 +94,6 @@ while (true) {
 			//notify all users about disconnected connection
 			$leave_name = $join_list[$key[0]]['join_name'];
 			unset($join_list[$key[0]]);
-			$response = mask(json_encode(array('type'=>'system', 'info'=>'leave','message'=>$ip.'--'.$leave_name.' 離線','join_list'=>$join_list, 'room'=>$room)));
-			
-			send_message($response);
 		}
 	}
 }

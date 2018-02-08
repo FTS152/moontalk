@@ -11,7 +11,7 @@ class Chat extends CI_Controller {
         $query = $this->db->get('moontalk_room');
         $passcheck = $query->result()[0];
         if($passcheck->room_pass != $this->session->password)
-            redirect(site_url().'room');
+            $this->js_alert('密碼錯誤！',site_url().'room');
 
         $data['socket_url'] = "ws://192.168.0.105:9000/web_socket/Chat-Using-WebSocket-and-PHP-Socket-master/CI_talk/moontalk/server.php";//socket server 路徑指向
         $data['username'] = $this->session->username ;
@@ -53,7 +53,8 @@ class Chat extends CI_Controller {
         $this->db->where('chat_room',$_GET['id']);
         $query = $this->db->get('moontalk_chat');
         $history = $query->result();
-        echo json_encode($history);         
-
+        foreach($history as $row){
+            echo $row->chat_user.' : '.$row->chat_msg.PHP_EOL;
+        }
     }
 }
