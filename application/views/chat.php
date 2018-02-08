@@ -32,6 +32,7 @@
                     </span>
                     <button id="send-btn" class="btn btn-warning" style="float: left;margin-left: 20px;">送出</button>
                     <button class="btn btn-danger" id="leave-btn" style="float: left;margin-left: 20px;">登出/離開</button>
+                    <?php echo anchor('chat/export?id='.$_GET['id'],'匯出'); ?>
                 </div>
 
             </div><!--subcontent-->
@@ -65,14 +66,30 @@
                 //取得名稱
                 var name = '<?php echo $username;?>';
                 var url = new URL(location.href);
-                var room = url.searchParams.get('hash'); //get hash
+                var room = url.searchParams.get('id'); //get id
 
                 if(name.trim()=='' || name.trim()==null || name.trim()==[] || typeof(name) =='undefined'){
                     alert('尚未登入');
                     window.location = "<?php echo site_url().'login'?>";
                     return false;
                 }else{
-                    $('#chatmessage').append("<div class=\"system_msg\">連結中......</div>"); //notify user
+                    $.ajax({
+                        type: "GET",
+                        url: "history?id=" + room,
+                        dataType: "json",
+                        success: function(data) {
+                            var num = data.length;
+                            for(var i = 0; i < num; i++){
+                                $("#chatmessage").append(
+                                    "<div><span class=\"user_name\" style='color:#"+data[i]['chat_color']+"'>"+data[i]['chat_user']+"</span> : <span class=\"user_message\">"+data[i]['chat_msg']+"</span></div>"
+                                );
+                            }
+                        },
+                        error: function(jqXHR) {
+                            alert('不存在此房間！'); 
+                            location.href = '../room';
+                        }
+                    })
                     $("#welcome_str").html('歡迎 <b>'+name+' </b>, 請於下方輸入留言:');
                     //prepare json data
                     var msg = {
@@ -89,23 +106,37 @@
         }
 
         $('#send-btn').click(function(){ //use clicks message send button
+            var url = new URL(location.href);
+            var room = url.searchParams.get('id'); //get id
+            $.ajax({
+                type: "GET",
+                url: "save?msg=" + $('#msgbox').val() + "&room=" + room,
+                dataType: "json",
+            })
             message_send();
-            $('#msgbox').val('');
+            $('#msgbox').val('');            
         });
 
         $('#msgbox').keypress(function(event){ //按下Enter 自動送出訊息
             if(event.keyCode==13){
+                var url = new URL(location.href);
+                var room = url.searchParams.get('id'); //get id
+                 $.ajax({
+                    type: "GET",
+                    url: "save?msg=" + $('#msgbox').val() + "&room=" + room,
+                })
                 message_send();
                 $('#msgbox').val(''); //reset text
             }
         });
+
 
         function message_send(){
             var mymessage = $('#msgbox').val(); //get message text
             var myname = '<?php echo $username;?>'; //get user name
 
             var url = new URL(location.href);
-            var myroom = url.searchParams.get('hash'); //get hash
+            var myroom = url.searchParams.get('id'); //get id
 
             if(myname == ""){ //empty name?
                 alert('尚未登入');
@@ -132,7 +163,7 @@
         $('#leave-btn').click(function(){
             var myname = '<?php echo $username;?>'; //get user name
             var url = new URL(location.href);
-            var myroom = url.searchParams.get('hash'); //get hash
+            var myroom = url.searchParams.get('id'); //get id
             var msg = {
                 type : 'join_name',
                 room: myroom,
@@ -149,7 +180,7 @@
         //#### Message received from server? (view端接收server數據時觸發事件)
         websocket.onmessage = function(ev) {
             var current_room_url = new URL(location.href);
-            var current_room = current_room_url.searchParams.get('hash'); //get hash
+            var current_room = current_room_url.searchParams.get('id'); //get id
 
             var msg = JSON.parse(ev.data); //PHP sends Json data
             var type = msg.type; //message type

@@ -46,6 +46,7 @@
                 </div>
                 <img id="showUserIcon" src="../../img_source/login/img_1.jpg">                
             </div>
+
             <div class="user">
                 <form name="user" action="<?php echo site_url().'/login/check';?>" onsubmit="" method="post">
                     <hc>USERNAME:</hc>
