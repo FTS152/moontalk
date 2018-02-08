@@ -53,7 +53,8 @@ class Chat extends CI_Controller {
         $this->db->where('chat_room',$_GET['id']);
         $query = $this->db->get('moontalk_chat');
         $history = $query->result();
-        echo json_encode($history);         
-
+        foreach($history as $row){
+            echo $row->chat_user.' : '.$row->chat_msg.PHP_EOL;
+        }
     }
 }

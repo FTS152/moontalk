@@ -73,6 +73,16 @@
                     window.location = "<?php echo site_url().'login'?>";
                     return false;
                 }else{
+                    //prepare json data
+                    var msg = {
+                        type : 'join_name',
+                        room: room ,
+                        join_name: name,
+                        color : '<?php echo $user_colour; ?>',
+                        head : '<?php echo $head;?>',
+                    };
+                    //convert and send data to server (連接傳送數據)
+                    websocket.send(JSON.stringify(msg));
                     $.ajax({
                         type: "GET",
                         url: "history?id=" + room,
@@ -91,16 +101,6 @@
                         }
                     })
                     $("#welcome_str").html('歡迎 <b>'+name+' </b>, 請於下方輸入留言:');
-                    //prepare json data
-                    var msg = {
-                        type : 'join_name',
-                        room: room ,
-                        join_name: name,
-                        color : '<?php echo $user_colour; ?>',
-                        head : '<?php echo $head;?>',
-                    };
-                    //convert and send data to server (連接傳送數據)
-                    websocket.send(JSON.stringify(msg));
                 }
             }
         }
@@ -196,30 +196,6 @@
                         $('#chatmessage').append("<div><span class=\"user_name\" style='color:#"+ucolor+"'>"+uname+"</span> : <span class=\"user_message\">"+umsg+"</span></div>");
                     }
                 }
-                if(type == 'system')
-                {
-                    //更新名單
-                    if(msg.info == 'enter'){
-                        var umsg = msg.message; //message text
-                        $('#chatmessage').append("<div class=\"system_msg\">"+umsg+"</div>");
-                    }
-
-                    //更新名單
-                    if(msg.info == 'leave'){
-                        var umsg = msg.message; //message text
-                        $('#chatmessage').append("<div class=\"system_msg\">"+umsg+"</div>");
-
-                        var join_list = msg.join_list; //join list
-                        $('.contactlist').empty();
-                        for(var index in join_list) {
-                            if(join_list[index].join_name&&join_list[index].room==current_room){
-                                var add_html = "<li class='online new'><span style='color:#"+join_list[index].color+"'>"+join_list[index].join_name+"</span></li>";
-                                $('.contactlist').append(add_html);
-                            }
-                        }
-                    }
-                }
-
                 if(type == 'join_name')
                 {
                     var join_name = msg.join_name; //join name
