@@ -12,13 +12,19 @@
 			<h1>人數限制</h1>
 		</div>
 		<div class="showRoomList">
-			<div class="roomTable">						
+			<div class="roomTable">		
+							
 				<?php foreach ($data as $value) {
 					echo "<div class="list"><div class="item1"><h1>".$value->{'room_id'}
 			  					."</h1></div><div class="item2"><h1>".anchor('chat/?hash='.$value->{'room_hash'},$value->{'room_name'})
 			  					."</h1></div><div class="item3"><h1>2</h1></div></div>";
 				}
-				?>	
+				?>
+				<div class="list">
+					<div class="item1"></div>
+					<div class="item2"></div>
+					<div class="item3"></div>
+				</div>
 			</div>			
 		</div>
 		<div class="addRoomBar">
