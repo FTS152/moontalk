@@ -10,6 +10,8 @@ class Chat extends CI_Controller {
         $this->db->where('room_id',$_GET['id']);
         $query = $this->db->get('moontalk_room');
         $passcheck = $query->result()[0];
+        if(!$passcheck)
+            $this->js_alert('不存在的房間！',site_url().'room');
         if($passcheck->room_lock && $passcheck->room_pass != $this->session->password)
             $this->js_alert('密碼錯誤！',site_url().'room');
 
@@ -23,11 +25,6 @@ class Chat extends CI_Controller {
 
     public function history()
     {
-        $this->db->where('room_id',$_GET['id']);
-        $query = $this->db->get('moontalk_room');
-        $room = $query->result();
-        if(!$room)
-            $this->js_alert('不存在的房間！',site_url().'room');
         $this->db->where('chat_room',$_GET['id']);
         $query = $this->db->get('moontalk_chat');
         $history = $query->result();

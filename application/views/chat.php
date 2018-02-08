@@ -93,7 +93,7 @@
                             }
                         },
                         error: function(jqXHR) {
-                            alert('不存在此房間！'); 
+                            alert('Error!'); 
                             location.href = '../room';
                         }
                     })
