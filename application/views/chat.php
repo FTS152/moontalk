@@ -32,6 +32,7 @@
                     </span>
                     <button id="send-btn" class="btn btn-warning" style="float: left;margin-left: 20px;">送出</button>
                     <button class="btn btn-danger" id="leave-btn" style="float: left;margin-left: 20px;">登出/離開</button>
+                    <?php echo anchor('chat/export?id='.$_GET['id'],'匯出'); ?>
                 </div>
 
             </div><!--subcontent-->
@@ -85,7 +86,8 @@
                             }
                         },
                         error: function(jqXHR) {
-                            alert("Error!");
+                            alert('不存在此房間！'); 
+                            location.href = '../room';
                         }
                     })
                     $("#welcome_str").html('歡迎 <b>'+name+' </b>, 請於下方輸入留言:');
@@ -104,16 +106,30 @@
         }
 
         $('#send-btn').click(function(){ //use clicks message send button
+            var url = new URL(location.href);
+            var room = url.searchParams.get('id'); //get id
+            $.ajax({
+                type: "GET",
+                url: "save?msg=" + $('#msgbox').val() + "&room=" + room,
+                dataType: "json",
+            })
             message_send();
-            $('#msgbox').val('');
+            $('#msgbox').val('');            
         });
 
         $('#msgbox').keypress(function(event){ //按下Enter 自動送出訊息
             if(event.keyCode==13){
+                var url = new URL(location.href);
+                var room = url.searchParams.get('id'); //get id
+                 $.ajax({
+                    type: "GET",
+                    url: "save?msg=" + $('#msgbox').val() + "&room=" + room,
+                })
                 message_send();
                 $('#msgbox').val(''); //reset text
             }
         });
+
 
         function message_send(){
             var mymessage = $('#msgbox').val(); //get message text

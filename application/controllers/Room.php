@@ -19,7 +19,7 @@ class Room extends CI_Controller {
         else if(!empty($_GET['name'])){
             $this->load->model('room_model');
             if($this->room_model->check_name($_GET['name'])){
-                $this->js_alert('此房間已存在',site_url().'room/add/');
+                $this->js_alert('此房間已存在',site_url().'room/add');
             }
             $data = array(
                 'room_name' => $_GET['name'],
@@ -43,7 +43,7 @@ class Room extends CI_Controller {
             if($data->room_pass == $_GET['pass'])
                 redirect('chat/?id='.$data->room_id);
             else
-                $this->js_alert('密碼錯誤！',site_url().'room/');                
+                $this->js_alert('密碼錯誤！',site_url().'room');                
         }
         else
             redirect('chat/?id='.$data->room_id);

@@ -12,7 +12,8 @@
 			<h1>密碼</h1>
 		</div>
 		<div class="showRoomList">
-			<div class="roomTable">						
+			<div class="roomTable">		
+							
 				<?php foreach ($data as $value) {
 					echo '<div class="list"><div class="item1"><h1>'.$value->{'room_id'}
 			  					.'</h1></div><div class="item2"><h1>'.anchor('room/check/?id='.$value->{'room_id'},$value->{'room_name'})
@@ -20,7 +21,12 @@
 									.$value->{'room_lock'}
 			  					.'</h1></div></div>';
 				}
-				?>	
+				?>
+				<div class="list">
+					<div class="item1"></div>
+					<div class="item2"></div>
+					<div class="item3"></div>
+				</div>
 			</div>			
 		</div>
 		<div class="addRoomBar">
