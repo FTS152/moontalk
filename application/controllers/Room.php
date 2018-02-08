@@ -16,15 +16,15 @@ class Room extends CI_Controller {
         {
            redirect('login/');
         }
-        else if(!empty($_GET['name'])){
+        else if(!empty($_POST['name'])){
             $this->load->model('room_model');
-            if($this->room_model->check_name($_GET['name'])){
+            if($this->room_model->check_name($_POST['name'])){
                 $this->js_alert('此房間已存在',site_url().'room/add');
             }
             $data = array(
-                'room_name' => $_GET['name'],
-                'room_lock' => $_GET['lock'],
-                'room_pass' => $_GET['pass'],
+                'room_name' => $_POST['name'],
+                'room_lock' => $_POST['lock'],
+                'room_pass' => $_POST['pass'],
                 );
             $this->db->insert('moontalk_room',$data);
             redirect('room/');
@@ -36,18 +36,8 @@ class Room extends CI_Controller {
 
     public function check()
     {
-        $this->db->where('room_id',$_GET['id']);
-        $query = $this->db->get('moontalk_room');
-        $data = $query->result()[0];
-        if($data->room_lock){
-            if($data->room_pass == $_GET['pass'])
-                redirect('chat/?id='.$data->room_id);
-            else
-                $this->js_alert('密碼錯誤！',site_url().'room');                
-        }
-        else
-            redirect('chat/?id='.$data->room_id);
-
+        $this->session->set_userdata(array('password'=>$_POST['value']));
+        $this->js_alert($this->session->password);
     }
 
     public function delete()

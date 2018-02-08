@@ -10,13 +10,14 @@ class Chat extends CI_Controller {
         $this->db->where('room_id',$_GET['id']);
         $query = $this->db->get('moontalk_room');
         $passcheck = $query->result()[0];
-        if($passcheck->room_pass != $this->session->password)
+        if($passcheck->room_lock && $passcheck->room_pass != $this->session->password)
             $this->js_alert('密碼錯誤！',site_url().'room');
 
-        $data['socket_url'] = "ws://192.168.0.105:9000/web_socket/Chat-Using-WebSocket-and-PHP-Socket-master/CI_talk/moontalk/server.php";//socket server 路徑指向
+        $data['socket_url'] = "ws://192.168.1.101:9000/moontalk/server.php";//socket server 路徑指向
         $data['username'] = $this->session->username ;
         $data['user_colour'] = $this->session->user_colour ;
         $data['head'] = $this->session->head;
+        $this->session->set_userdata(array('room'=>$_GET['id']));
         $this->load->view('chat.php',$data);
     }
 
@@ -41,7 +42,7 @@ class Chat extends CI_Controller {
             'chat_color' => $this->session->user_colour,
             'chat_head' => $this->session->head,
             'chat_msg' => $_GET['msg'],
-            'chat_room' => $_GET['room'],
+            'chat_room' => $this->session->room,
             );
             $this->db->insert('moontalk_chat',$data);
     }
@@ -50,7 +51,8 @@ class Chat extends CI_Controller {
     {
         header("Content-type: application/text");
         header("Content-Disposition: attachment; filename=save.txt");
-        $this->db->where('chat_room',$_GET['id']);
+        $room = $this->session->room;
+        $this->db->where('chat_room',$room);
         $query = $this->db->get('moontalk_chat');
         $history = $query->result();
         foreach($history as $row){

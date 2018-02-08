@@ -3,7 +3,7 @@
  $attributes = array(
  	'id' => 'add',
  	'name' => 'add',
- 	'method' => 'get'
+ 	'method' => 'post'
  );
  echo form_open('room/add/',$attributes);
  ?>
