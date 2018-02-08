@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>MoonTalk</title>
-	<link rel="stylesheet" type="text/css" href="../../css/room_list.css">
+	<link rel="stylesheet" type="text/css" href="./css/room_list.css">
 </head>
 <body>
 	<div class="showRoomListBlock">
@@ -16,10 +16,7 @@
 							
 				<?php foreach ($data as $value) {
 					echo '<div class="list"><div class="item1"><h1>'.$value->{'room_id'}.'</h1></div>';
-			  		if($value->{'room_lock'})
-			  			echo '<div class="item2"><h1>'.anchor('chat/?id='.$value->{'room_id'},htmlentities($value->{'room_name'})).'</h1></div>';
-			  		else
-			  			echo '<div class="item2"><h1>'.anchor('chat/?id='.$value->{'room_id'},htmlentities($value->{'room_name'})).'</h1></div>';
+			  		echo '<div class="item2" value='.$value->{"room_lock"}.'><h1>'.anchor('chat/?id='.$value->{'room_id'},htmlentities($value->{'room_name'})).'</h1></div>';
 			  		echo '<div class="item3"><h1>'.$value->{'room_lock'}.'</h1></div></div>';
 				}
 				?>
@@ -32,7 +29,7 @@
 		</div>
 		<div class="addRoomBar">
 			<a href="room/add/" class="roomAdd">
-				<img src="../../img_source/roomList/roomAdd.png" alt="roomAdd">
+				<img src="./img_source/roomList/roomAdd.png" alt="roomAdd">
 				<h1>新增會議室</h1>
 			</a>
 		</div>
@@ -45,7 +42,16 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script>
 $('.item2').click(function(){
-		var pass = prompt('請輸入密碼');
-  		location.href="room?value=" pass;
+		if($(this).attr('value')=="1"){
+			var pass = prompt('請輸入密碼');
+			$.ajax({
+	            type: "POST",
+	            url: '<?php echo site_url('room/check'); ?>',
+	            data: {
+	            	'value': pass
+	            }
+	        })
+		}
+    });
 </script>
 

@@ -32,7 +32,7 @@
                     </span>
                     <button id="send-btn" class="btn btn-warning" style="float: left;margin-left: 20px;">送出</button>
                     <button class="btn btn-danger" id="leave-btn" style="float: left;margin-left: 20px;">登出/離開</button>
-                    <?php echo anchor('chat/export?id='.$_GET['id'],'匯出'); ?>
+                    <?php echo anchor('chat/export','匯出'); ?>
                 </div>
 
             </div><!--subcontent-->
@@ -56,7 +56,7 @@
 
 <script type="text/javascript"></script>
 <script language="javascript" type="text/javascript">
-    $(document).ready(function(){
+    $(document).ready(function(){ 
         //create a new WebSocket object.(建立socket物件)
         var wsUri = "<?php echo $socket_url;?>";
         websocket = new WebSocket(wsUri);
@@ -65,9 +65,6 @@
                 //確認socket連結是 open 狀態
                 //取得名稱
                 var name = '<?php echo $username;?>';
-                var url = new URL(location.href);
-                var room = url.searchParams.get('id'); //get id
-
                 if(name.trim()=='' || name.trim()==null || name.trim()==[] || typeof(name) =='undefined'){
                     alert('尚未登入');
                     window.location = "<?php echo site_url().'login'?>";
@@ -76,7 +73,7 @@
                     //prepare json data
                     var msg = {
                         type : 'join_name',
-                        room: room ,
+                        room: <?php echo $this->session->room;?> ,
                         join_name: name,
                         color : '<?php echo $user_colour; ?>',
                         head : '<?php echo $head;?>',
@@ -85,7 +82,7 @@
                     websocket.send(JSON.stringify(msg));
                     $.ajax({
                         type: "GET",
-                        url: "history?id=" + room,
+                        url: "history?id="+<?php echo $_GET['id']?>,
                         dataType: "json",
                         success: function(data) {
                             var num = data.length;
@@ -96,7 +93,7 @@
                             }
                         },
                         error: function(jqXHR) {
-                            alert('不存在此房間！'); 
+                            alert('Error!'); 
                             location.href = '../room';
                         }
                     })
@@ -106,12 +103,9 @@
         }
 
         $('#send-btn').click(function(){ //use clicks message send button
-            var url = new URL(location.href);
-            var room = url.searchParams.get('id'); //get id
             $.ajax({
                 type: "GET",
-                url: "save?msg=" + $('#msgbox').val() + "&room=" + room,
-                dataType: "json",
+                url: "save?msg=" + $('#msgbox').val(),
             })
             message_send();
             $('#msgbox').val('');            
@@ -119,11 +113,9 @@
 
         $('#msgbox').keypress(function(event){ //按下Enter 自動送出訊息
             if(event.keyCode==13){
-                var url = new URL(location.href);
-                var room = url.searchParams.get('id'); //get id
                  $.ajax({
                     type: "GET",
-                    url: "save?msg=" + $('#msgbox').val() + "&room=" + room,
+                    url: "save?msg=" + $('#msgbox').val(),
                 })
                 message_send();
                 $('#msgbox').val(''); //reset text
@@ -134,9 +126,6 @@
         function message_send(){
             var mymessage = $('#msgbox').val(); //get message text
             var myname = '<?php echo $username;?>'; //get user name
-
-            var url = new URL(location.href);
-            var myroom = url.searchParams.get('id'); //get id
 
             if(myname == ""){ //empty name?
                 alert('尚未登入');
@@ -152,7 +141,7 @@
             var msg = {
                 type : 'usermsg',
                 message: mymessage,
-                room: myroom,
+                room: <?php echo $this->session->room;?>,
                 name: myname,
                 color : '<?php echo $user_colour; ?>'
             };
@@ -162,11 +151,9 @@
 
         $('#leave-btn').click(function(){
             var myname = '<?php echo $username;?>'; //get user name
-            var url = new URL(location.href);
-            var myroom = url.searchParams.get('id'); //get id
             var msg = {
                 type : 'join_name',
-                room: myroom,
+                room: <?php echo $this->session->room;?>,
                 name: myname,
                 color : '<?php echo $user_colour; ?>'
             };
@@ -179,11 +166,9 @@
 
         $(window).unload(function(){
             var myname = '<?php echo $username;?>'; //get user name
-            var url = new URL(location.href);
-            var myroom = url.searchParams.get('id'); //get id
             var msg = {
                 type : 'join_name',
-                room: myroom,
+                room: <?php echo $this->session->room;?>,
                 name: myname,
                 color : '<?php echo $user_colour; ?>'
             };
@@ -194,14 +179,11 @@
 
         //#### Message received from server? (view端接收server數據時觸發事件)
         websocket.onmessage = function(ev) {
-            var current_room_url = new URL(location.href);
-            var current_room = current_room_url.searchParams.get('id'); //get id
-
             var msg = JSON.parse(ev.data); //PHP sends Json data
             var type = msg.type; //message type
             var ucolor = msg.color; //color
             var uroom = msg.room;
-            if(uroom==current_room){ //only show messages in the same room
+            if(uroom==<?php echo $this->session->room;?>){ //only show messages in the same room
                 if(type == 'usermsg')
                 {
                     
@@ -221,7 +203,7 @@
                     //更新名單
                     $('.contactlist').empty();
                     for(var index in join_list) {
-                        if(join_list[index].join_name&&join_list[index].room==current_room){
+                        if(join_list[index].join_name&&join_list[index].room==<?php echo $this->session->room;?>){
                             var add_html = "<li class='online new'><span style='color:#"+join_list[index].color+"'>"+join_list[index].join_name+"</span></li>";
                             $('.contactlist').append(add_html);
                         }
