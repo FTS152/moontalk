@@ -5,7 +5,13 @@ body{
 a{
 	font-family: monospace,Microsoft JhengHei;}
 
-#showUserIcon{
+#setIcon img{
+	border: 3px gray dashed;
+	margin: 2px;
+	cursor: pointer;
+}
+#setIcon img:hover{border: 3px yellow solid;}
+#currentIcons img{
 	border: 3px #56bfc1 solid;
 	cursor: pointer;	
 	margin-bottom: 60px;
@@ -44,7 +50,12 @@ input[type="submit"]{
 .loginbox{
 	margin-top: 60px;	
 }
-.validateTips{
-	border: 1px solid transparent;
-	padding: 0.3em;
+
+/*有關彈跳視窗的CSS在這改*/
+.dlg-no-close .ui-dialog-titlebar-close {display: none;}
+.ui-widget-header,.ui-state-default{
+	background-color: black;
+	color: white;
+
 }
+.dlg-no-close .ui-widget-content{background-color:black}

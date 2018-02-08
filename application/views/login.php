@@ -10,26 +10,36 @@
         <script type="text/javascript" src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
         
         <link type="text/css" rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
-        
+
         <script>
            $(function() { 
                 $("#setIcon").dialog({ 
                     autoOpen: false, 
-                    modal: true,
                     show: null, 
-                    hide: null, 
-                    buttons: { 
-                        "Ok": function() { $(this).dialog("close"); }, 
-                        "Cancel": function() { $(this).dialog("close"); }
-                    }
+                    hide: null,
+                    dialogClass: "dlg-no-close",
+                    modal: true,
+                    resizable: false
                 }); 
-                $("#showUserIcon").click(function() { 
+                $(".picture").click(function() { 
                     $("#setIcon").dialog("open"); 
                     return false; 
                 }); 
-            });
-
-
+                $(".selpicture").click(function(){
+                    $("#setIcon").dialog("close");
+                    return false;
+                });
+            });   
+        </script>
+        <script>
+            function openImg(imgName) {
+                var i, x;
+                x = document.getElementsByClassName("picture");
+                for (i = 0; i < x.length; i++) {
+                    x[i].style.display = "none";
+                }
+                document.getElementById(imgName).style.display = "inline";
+            }
         </script>
     </head>
 
@@ -40,11 +50,15 @@
         <div class="loginbox">
             <div id="settingUserIcon">   
                 <div id="setIcon" title="請選擇你想要的頭像">
-                    <img src="../../img_source/login/img_1.jpg">
-                    <img src="../../img_source/login/img_2.jpg">
-                    <img src="../../img_source/login/img_3.jpg">
+                    <img class="selpicture" src="../../img_source/login/img_1.jpg" onclick="openImg('1')";>
+                    <img class="selpicture" src="../../img_source/login/img_2.jpg" onclick="openImg('2');">
+                    <img class="selpicture" src="../../img_source/login/img_3.jpg" onclick="openImg('3');">
                 </div>
-                <img id="showUserIcon" src="../../img_source/login/img_1.jpg">                
+                <div id="currentIcons">
+                    <img id="1" class="picture" style="display: inline;" src="../../img_source/login/img_1.jpg">
+                    <img id="2" class="picture" style="display: none;"   src="../../img_source/login/img_2.jpg">
+                    <img id="3" class="picture" style="display: none;"    src="../../img_source/login/img_3.jpg">
+                </div>                                 
             </div>
 
             <div class="user">

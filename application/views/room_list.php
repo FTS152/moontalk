@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>MoonTalk</title>
-	<link rel="stylesheet" type="text/css" href="./css/room_list.css">
+	<link rel="stylesheet" type="text/css" href="../../css/room_list.css">
 </head>
 <body>
 	<div class="showRoomListBlock">
@@ -31,7 +31,7 @@
 		</div>
 		<div class="addRoomBar">
 			<a href="room/add/" class="roomAdd">
-				<img src="./img_source/roomList/roomAdd.png" alt="roomAdd">
+				<img src="../../img_source/roomList/roomAdd.png" alt="roomAdd">
 				<h1>新增會議室</h1>
 			</a>
 		</div>
