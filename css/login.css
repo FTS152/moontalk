@@ -2,8 +2,9 @@ body{
 	text-align: center;
 }
 a{
-	font-family: monospace,Microsoft JhengHei;}
+	font-family: monospace,Microsoft JhengHei;
 
+}
 #setIcon img{
 	border: 3px gray dashed;
 	margin: 2px;
@@ -44,7 +45,7 @@ input[type="submit"]{
 }
 .user hc{
 	font-family: monospace,Microsoft JhengHei;
-	font-size: 20px;
+	font-size: 15px;
 	color: white;
 	display: inline;
 }
@@ -70,8 +71,11 @@ input[type="submit"]{
 	padding: 20px;
 	border: 2px black solid;
 	border-radius: 20px;
+	transition: 700ms;
 }
-
+.loginbox:hover{
+	background-color: rgba(0,0,0,0.9);	
+}
 /*有關彈跳視窗的CSS在這改*/
 .dlg-no-close .ui-dialog-titlebar-close {display: none;}
 .ui-widget-header,.ui-state-default{

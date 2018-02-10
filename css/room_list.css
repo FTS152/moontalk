@@ -5,6 +5,23 @@ body{
 p{
 	color: white;
 }
+a{
+	font-family: monospace,Microsoft JhengHei;
+}
+a:focus{outline: none;}
+.bg{
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	z-index: -999;
+}
+.bg img{
+	min-height: 100%;
+	width: 100%;
+}
+/**/
 #showRoomListBlock{
 	width: 60%;
 	margin-left: 5%;
@@ -14,9 +31,13 @@ p{
 .roomListBar{
 	text-align: center;
 	height: 35px;
-	border: 5px #56bfc1 solid;	
+	padding-top: 2px;
+	border: 2px black solid;
+	border-radius: 20px;
+	border-bottom-left-radius: 0px;
+	border-bottom-right-radius: 0px;	
 	border-bottom-width: 0px; 
-	background-color: blue;
+	background-color: rgba(00,00,79,0.7);
 }
 .item{
 	text-align: center;
@@ -25,17 +46,17 @@ p{
 }
 .item h1{
 	display: inline;
-	font-family: Microsoft JhengHei;
-	font-size: 25px;
+	font-family: monospace,Microsoft JhengHei;
+	font-size: 24px;	
 	color: white;	
 }
 .showRoomList{	
 	height: 480px;
 	overflow: auto;
-	border: 5px #56bfc1 solid;
+	border: 2px black solid;	
 	border-top-width: 0px;
 	border-bottom-width: 0px;
-	background-color: black;
+	background-color: rgba(0,0,0,0.9);
 	padding: 10px;
 	color: white;
 }
@@ -43,9 +64,11 @@ p{
 	margin-top: 10px;
 	margin-bottom: 10px;
 	height: 20px;
-	border: 4px gray solid;
+	border: 2px gray dashed;
+	border-radius: 10px;
 	padding-top: 8px;
 	padding-bottom: 8px;
+	transition: all 300ms;
 }
 .item1{
 	text-align: center;
@@ -67,22 +90,27 @@ p{
 	margin-top: 10px;
 	margin-bottom: 10px;
 	height: 20px;
-	border: 4px yellow solid;
+	border: 2px yellow solid;
 	padding-top: 8px;
 	padding-bottom: 8px;
 }	
 /*自定義滾輪*/
 .showRoomList::-webkit-scrollbar{
 	width: 15px;
-	background-color: white;
+	background-color: #111111;
 }
 .showRoomList::-webkit-scrollbar-button{display: none;}
-.showRoomList::-webkit-scrollbar-thumb{background-color: yellow;}
+.showRoomList::-webkit-scrollbar-thumb{background-color: #272727;transition: 500ms;}
+.showRoomList::-webkit-scrollbar-thumb:hover{background-color: #4f4f4f;}
 .addRoomBar{
 	text-align: center;
-	border:  5px #56bfc1 solid;
+	border: 2px black solid;
+	border-radius: 20px;
+	border-top-left-radius: 0px;
+	border-top-right-radius: 0px;
 	border-top-width: 0px;
-	background: blue;	
+	background: rgba(00,00,79,0.7);
+	padding: 3px 0;
 }
 .roomAdd:link{text-decoration: none;color: white;}
 .roomAdd:visited{text-decoration: none;color: white;}
@@ -93,8 +121,35 @@ p{
 	display: inline;
 	padding: 0 10px;
 	font-family: Microsoft JhengHei;
-	font-size: 25px;
+	font-size: 20px;
 }
+.addRoom hc{
+	font-size: 15px;
+	font-family: monospace,Microsoft JhengHei;
+	color: black;
+}
+.text-align-center{text-align: center;margin-top: 5px;margin-bottom: 0;}
+input:focus{outline: none;}
+input[type="text"]{	
+	font-family: monospace,Microsoft JhengHei;
+	color: black;
+	font-size: 15px;
+	cursor: pointer;
+}
+input[type="radio"]{cursor: pointer;}
+input[type="password"]{	
+	font-family: monospace,Microsoft JhengHei;
+	color: black;
+	font-size: 15px;
+	cursor: pointer;
+}
+input[type="submit"]{		
+	font-family: monospace,Microsoft JhengHei;
+	color: black;
+	font-size: 15px;
+	cursor: pointer;	
+}
+/*rightSide*/
 #userInfoBlock{
 	width: 25%;
 	margin-right: 5%;
@@ -103,29 +158,50 @@ p{
 }
 .userInfo{	
 	height: 200px;
-	border: 5px #56bfc1 solid;	
+	border: 2px black solid;
+	border-radius: 20px;
+	background-color: rgba(0,0,0,0.7);
+	transition: 500ms;
+}
+.userInfo:hover{
+	background-color: rgba(0,0,0,1);
 }
 .userInfo .userIcon{
-	width: 50%;
+	width: 40%;
 	text-align: center;
 	padding-top: 65px;
 	float: left;
 }
 .userIcon img{
-	border: 3px purple solid;		
+	border: 3px white solid;
+	border-radius: 10px;	
 }
 .userInfo .username{
-	width: 50%;	
+	width: 60%;	
 	padding-top: 65px;
 	float: right;
+	font-family: monospace,Microsoft JhengHei;
 }
 #noticeBlock{
 	width: 25%;
 	margin-right: 5%;
-	margin-top: 60px;
+	margin-top: 47px;
 	float: right;
 }
 .notice{
 	height: 300px;
-	border: 5px #56bfc1 solid;	
+	border: 2px black solid;
+	border-radius: 20px;
+	background-color: rgba(0,0,0,0.7);
+	transition: 500ms;
+	padding: 10px 15px;
+	font-family: monospace,Microsoft JhengHei;
 }
+.notice:hover{
+	background-color: rgba(0,0,0,1);
+}
+.notice a{float: right;}
+.notice a:link{text-decoration: none;color: white;}
+.notice a:visited{text-decoration: none;color: white;}
+.notice a:hover{text-decoration: none;filter: glow(color: yellow,strength:10);color: yellow;text-shadow: 1px 1px 10px yellow;}
+.notice a:active{text-decoration: none;color: white;}
