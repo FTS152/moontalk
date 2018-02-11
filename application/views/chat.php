@@ -195,6 +195,9 @@
         websocket.onclose   = function(ev){$('#chatmessage').append("<div class=\"system_msg\">Server Closed</div>");};  //server被關閉時
 
     });
+    function htmlentities(str) {
+        return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
     </script>
 </head>
 <body>
@@ -217,7 +220,7 @@
             </div>
             <div class="username">
                 <p>username:</p>
-                <p><?php echo $this->session->username;?></p>
+                <p><?php echo htmlentities($this->session->username);?></p>
             </div>
         </div>  
     </div>
