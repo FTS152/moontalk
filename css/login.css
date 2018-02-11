@@ -5,12 +5,10 @@ a{
 	font-family: monospace,Microsoft JhengHei;
 
 }
-#setIcon img{
-	border: 3px gray dashed;
-	margin: 2px;
+#settingUserIcon .selpicture{
 	cursor: pointer;
+	margin-bottom: 14px;
 }
-#setIcon img:hover{border: 3px yellow solid;}
 #currentIcons img{
 	border: 3px white solid;
 	border-radius: 10px;
