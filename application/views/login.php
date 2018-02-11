@@ -35,9 +35,8 @@
             <div id="settingUserIcon" class="collapse">   
                 <img class="selpicture" src="../../img_source/login/img_1.png" onclick="openImg('1')";>
                 <img class="selpicture" src="../../img_source/login/img_2.png" onclick="openImg('2');">
-                <img class="selpicture" src="../../img_source/login/img_3.png" onclick="openImg('3');">
+                <img class="selpicture" src="../../img_source/login/img_3.png" onclick="openImg('3');">                
             </div>
-            <br>
             <div class="user">
                 <form name="user" action="<?php echo site_url().'/login/check';?>" onsubmit="" method="post">
                     <hc>使用者名稱:</hc>
