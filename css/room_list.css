@@ -7,6 +7,7 @@ p{
 }
 a{
 	font-family: monospace,Microsoft JhengHei;
+	text-decoration: none;
 }
 a:focus{outline: none;}
 .bg{
@@ -69,6 +70,7 @@ a:focus{outline: none;}
 	padding-top: 8px;
 	padding-bottom: 8px;
 	transition: all 300ms;
+	color: white;
 }
 .item1{
 	text-align: center;
@@ -93,6 +95,9 @@ a:focus{outline: none;}
 	border: 2px yellow solid;
 	padding-top: 8px;
 	padding-bottom: 8px;
+	filter: glow(color: yellow,strength:10);
+	color: yellow;
+	text-shadow: 1px 1px 10px yellow;
 }	
 /*自定義滾輪*/
 .showRoomList::-webkit-scrollbar{
