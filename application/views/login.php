@@ -18,6 +18,7 @@
                     x[i].style.display = "none";
                 }
                 document.getElementById(imgName).style.display = "inline";
+                $('#head').val(imgName);
             }
         </script>
     </head>
@@ -29,20 +30,20 @@
         <div class="loginbox">
 
             <div id="currentIcons" data-toggle="collapse" data-target="#settingUserIcon">
-                <img id="1" class="picture" style="display: inline;" src="./img_source/login/img_1.png">
-                <img id="2" class="picture" style="display: none;"   src="./img_source/login/img_2.png">
-                <img id="3" class="picture" style="display: none;"    src="./img_source/login/img_3.png">
+                <img id="img_1.png" class="picture" style="display: inline;" src="./img_source/login/img_1.png">
+                <img id="img_2.png" class="picture" style="display: none;"   src="./img_source/login/img_2.png">
+                <img id="img_3.png" class="picture" style="display: none;"    src="./img_source/login/img_3.png">
             </div>
             <div id="settingUserIcon" class="collapse">   
-                <img class="selpicture" src="./img_source/login/img_1.png" onclick="openImg('1')";>
-                <img class="selpicture" src="./img_source/login/img_2.png" onclick="openImg('2');">
-                <img class="selpicture" src="./img_source/login/img_3.png" onclick="openImg('3');">                
+                <img class="selpicture" src="./img_source/login/img_1.png" onclick="openImg('img_1.png')";>
+                <img class="selpicture" src="./img_source/login/img_2.png" onclick="openImg('img_2.png');">
+                <img class="selpicture" src="./img_source/login/img_3.png" onclick="openImg('img_3.png');">                
             </div>
             <div class="user">
                 <form name="user" action="<?php echo site_url().'/login/check';?>" onsubmit="" method="post">
                     <hc>使用者名稱:</hc>
                     <input type="text" name="user" id="user">
-                    <input type="hidden" name="head" value="1"> <!-- 頭像先藏起來-->
+                    <input id="head" type="hidden" name="head" value="1"> <!-- 頭像先藏起來-->
                     <input type="submit" name="enter" value="加入會議室">
                 </form>
             </div>                       

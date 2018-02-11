@@ -21,9 +21,15 @@ class Room extends CI_Controller {
             if($this->room_model->check_name($_POST['name'])){
                 $this->js_alert('此房間已存在',site_url().'room/add');
             }
+            if(empty($_POST['pass'])){
+                $lock = 0;
+            }
+            else{
+                $lock = 1;
+            }
             $data = array(
                 'room_name' => $_POST['name'],
-                'room_lock' => $_POST['lock'],
+                'room_lock' => $lock,
                 'room_pass' => $_POST['pass'],
                 );
             $this->db->insert('moontalk_room',$data);

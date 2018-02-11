@@ -41,11 +41,8 @@
 		<div class="addRoomBlock">
 			<form class="addRoom" title="建立新會議室" action="<?php echo site_url().'/room/add';?>" method="post">			
 				<hc>房間名稱:</hc>
-				<input type="text" name="name" size="8"><br>
-				<hc>私密房間:</hc>
-				<input type="radio" name="lock" value="1">是
-				<input type="radio" name="lock" value="0">否<br>
-				<hc>房間密碼:</hc>
+				<input required type="text" name="name" size="8"><br>
+				<hc>房間密碼(可選):</hc>
 				<input type="password" name="pass" size="8"><br>
 				<div class="text-align-center">
 					<input id="submitRoom" type="submit" value="add">
@@ -62,11 +59,11 @@
 	<div id="userInfoBlock">
 		<div class="userInfo">
 			<div class="userIcon">
-				<img src="./img_source/login/img_1.png">
+				<img src="./img_source/login/<?php echo $this->session->head;?>">
 			</div>
 			<div class="username">
 				<p>username:</p>
-				<p>iNoyoka</p>
+				<p><?php echo $this->session->username;?></p>
 			</div>
 		</div>	
 	</div>
@@ -86,13 +83,15 @@
 	$(".item1").click(function(){
 			if($(this).attr('value')=="1"){
 				var pass = prompt('請輸入密碼');
-				$.ajax({
-		            type: "POST",
-		            url: '<?php echo site_url('room/check'); ?>',
-		            data: {
-		            	'value': pass
-		            }
-		        })
+				if(pass!=null){
+					$.ajax({
+			            type: "POST",
+			            url: '<?php echo site_url('room/check'); ?>',
+			            data: {
+			            	'value': pass
+			            }
+			        })
+				}
 			}
 	    });
            $(function() { 
