@@ -24,7 +24,7 @@
 			<div class="roomTable">		
 				
 				<?php foreach ($data as $value) {
-					echo '<div class="list"><div class="item1"><h1>'.$value->{'room_id'}.'</h1></div>';
+					echo '<div id="list" class="list" room='.$value->{'room_id'}.' value='.$value->{'room_lock'}.'> <div class="item1"><h1>'.$value->{'room_id'}.'</h1></div>';
 			  		echo '<div class="item1" value='.$value->{"room_lock"}.'><h1>'.anchor('chat/?id='.$value->{'room_id'},htmlentities($value->{'room_name'})).'</h1></div>';
 			  		echo '<div class="item1"><h1>'.$value->{'room_lock'}.'</h1></div></div>';
 				}
@@ -56,17 +56,17 @@
 			</a>
 		</div>
 	</div>
-	<div id="userInfoBlock">
-		<div class="userInfo">
-			<div class="userIcon">
-				<img src="./img_source/login/<?php echo $this->session->head;?>">
-			</div>
-			<div class="username">
-				<p>username:</p>
-				<p><?php echo $this->session->username;?></p>
-			</div>
-		</div>	
-	</div>
+    <div id="userInfoBlock">
+        <div class="userInfo">
+            <div class="userIcon">
+                <img src="./img_source/login/<?php echo $this->session->head;?>">
+            </div>
+            <div class="username">
+                <p>username:</p>
+                <p><?php echo htmlentities($this->session->username);?></p>
+            </div>
+        </div>  
+    </div>
 	<div id="noticeBlock">
 		<div class="notice">
 			<p>※本網站僅作為會議平台使用，請勿做出違反法律之行為，若有法律糾紛，我們概不負責</p>
@@ -80,20 +80,23 @@
 </html>
 
 <script>
-	$(".item1").click(function(){
-			if($(this).attr('value')=="1"){
-				var pass = prompt('請輸入密碼');
-				if(pass!=null){
-					$.ajax({
-			            type: "POST",
-			            url: '<?php echo site_url('room/check'); ?>',
-			            data: {
-			            	'value': pass
-			            }
-			        })
-				}
+$(function () {
+    $(".list").bind("click", function () {
+        location.href = "<?php echo site_url().'chat/?id=';?>"+$(this).attr('room');
+		if($(this).attr('value')=="1"){
+			var pass = prompt('請輸入密碼');
+			if(pass!=null){
+				$.ajax({
+			           type: "POST",
+			           url: '<?php echo site_url('room/check'); ?>',
+			           data: {
+			            'value': pass
+			           }
+			       })
 			}
-	    });
+		}
+    });
+});
            $(function() { 
                 $(".addRoom").dialog({ 
                     autoOpen: false, 
