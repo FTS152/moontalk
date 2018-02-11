@@ -43,7 +43,7 @@
                 <form name="user" action="<?php echo site_url().'/login/check';?>" onsubmit="" method="post">
                     <hc>使用者名稱:</hc>
                     <input type="text" name="user" id="user">
-                    <input id="head" type="hidden" name="head" value="1"> <!-- 頭像先藏起來-->
+                    <input id="head" type="hidden" name="head" value="img_1.png"> <!-- 頭像先藏起來-->
                     <input type="submit" name="enter" value="加入會議室">
                 </form>
             </div>                       

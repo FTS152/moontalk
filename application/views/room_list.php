@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>MoonTalk</title>
-	<link rel="stylesheet" type="text/css" href="../../css/room_list.css">
+	<link rel="stylesheet" type="text/css" href="./css/room_list.css">
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
 	<!--jQuery link-->     
         <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>

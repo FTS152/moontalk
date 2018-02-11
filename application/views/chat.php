@@ -43,7 +43,7 @@
                             var num = data.length;
                             for(var i = 0; i < num; i++){
                                 $("#chatmessage").append(
-                                    "<div><span class=\"user_name\" style='color:#"+data[i]['chat_color']+"'>"+data[i]['chat_user']+"</span> : <span class=\"user_message\">"+data[i]['chat_msg']+"</span></div>"
+                                    "<div><span class=\"user_name\" style='color:#"+data[i]['chat_color']+"'>"+data[i]['chat_user']+"</span> : <span class=\"user_message\">"+htmlentities(data[i]['chat_msg'])+"</span></div>"
                                 );
                             }
                         },
@@ -169,7 +169,7 @@
                     var uname = msg.name; //user name
                     var umsg = msg.message; //message text
                     if(uname && umsg){
-                        $('#chatmessage').append("<div><span class=\"user_name\" style='color:#"+ucolor+"'>"+uname+"</span> : <span class=\"user_message\">"+umsg+"</span></div>");
+                        $('#chatmessage').append("<div><span class=\"user_name\" style='color:#"+ucolor+"'>"+uname+"</span> : <span class=\"user_message\">"+htmlentities(umsg)+"</span></div>");
                     }
                 }
                 if(type == 'join_name')
@@ -213,11 +213,11 @@
     <div id="userInfoBlock">
         <div class="userInfo">
             <div class="userIcon">
-                <img src="../img_source/login/img_1.png">
+                <img src="../img_source/login/<?php echo $this->session->head;?>">
             </div>
             <div class="username">
                 <p>username:</p>
-                <p>iNoyoka</p>
+                <p><?php echo $this->session->username;?></p>
             </div>
         </div>  
     </div>

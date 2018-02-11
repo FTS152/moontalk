@@ -35,9 +35,7 @@ class Room extends CI_Controller {
             $this->db->insert('moontalk_room',$data);
             redirect('room/');
         }  
-
-        $this->load->view('room_add.php');
-
+        redirect('room/');
     }
 
     public function check()

@@ -27,7 +27,7 @@ class Login extends CI_Controller {
         $head = $this->input->post('head');
 
         if(empty($username)) $this->js_alert('未輸入名稱');
-        if(mb_strlen($username)<4) $this->js_alert('名稱至少4個字');
+        if(mb_strlen($username)>10) $this->js_alert('名稱最多10個字');
         if(empty($head)) $this->js_alert('未選擇頭像');
 
         //顏色
