@@ -42,9 +42,9 @@ class Room extends CI_Controller {
 
     public function delete()
     {
-        $this->db->where('room_id',$_GET['id']);
+        $this->db->where('room_id',$_POST['room']);
         $this->db->delete('moontalk_room');
-        $this->db->where('chat_room',$_GET['id']);
+        $this->db->where('chat_room',$_POST['room']);
         $this->db->delete('moontalk_chat'); 
 
     }

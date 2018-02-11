@@ -15,7 +15,7 @@ class Chat extends CI_Controller {
         if($passcheck->room_lock && $passcheck->room_pass != $this->session->password)
             $this->js_alert('密碼錯誤！',site_url().'room');
 
-        $data['socket_url'] = "ws://192.168.1.101:9000/moontalk/server.php";//socket server 路徑指向
+        $data['socket_url'] = "ws://192.168.0.102:9000/moontalk/server.php";//socket server 路徑指向
         $data['username'] = $this->session->username ;
         $data['user_colour'] = $this->session->user_colour ;
         $data['head'] = $this->session->head;

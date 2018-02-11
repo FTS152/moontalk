@@ -150,6 +150,44 @@
         }
 
         $('#leave-btn').click(function(){
+            X = document.getElementsByClassName("online new");
+            if(X.length==1&&<?php echo $_GET['id'];?>!=10){
+                if(confirm("你是此房間的最後一人。若你離開，此房間將會被刪除。")){
+                    $.ajax({
+                        type: "POST",
+                        url: "<?php echo site_url().'room/delete'?>",
+                        data:{
+                            'room': <?php echo $_GET['id'];?>
+                        }
+                    })
+                    leave();
+                }
+            }
+            else{
+                leave();
+            }
+        });
+
+        window.onbeforeunload(function(){
+                X = document.getElementsByClassName("online new");
+                if(X.length==1&&<?php echo $_GET['id'];?>!=10){
+                    if(confirm("你是此房間的最後一人。若你離開，此房間將會被刪除。")){
+                        $.ajax({
+                            type: "POST",
+                            url: "<?php echo site_url().'room/delete'?>",
+                            data:{
+                                'room': <?php echo $_GET['id'];?>
+                            }
+                        })
+                        leave();
+                    }
+                }
+                else{
+                    leave();
+                }
+        });
+
+        function leave(){
             var myname = '<?php echo $username;?>'; //get user name
             var msg = {
                 type : 'join_name',
@@ -162,20 +200,7 @@
             websocket.close();
             $('#chatmessage').append("<div class=\"system_msg\">您已離線...</div>");
             window.location = "<?php echo site_url().'login/logout'?>";
-        });
-
-        $(window).unload(function(){
-            var myname = '<?php echo $username;?>'; //get user name
-            var msg = {
-                type : 'join_name',
-                room: <?php echo $this->session->room;?>,
-                name: myname,
-                color : '<?php echo $user_colour; ?>'
-            };
-            //convert and send data to server (連接傳送數據)
-            websocket.send(JSON.stringify(msg));
-            websocket.close();
-        });
+        }
 
         //#### Message received from server? (view端接收server數據時觸發事件)
         websocket.onmessage = function(ev) {

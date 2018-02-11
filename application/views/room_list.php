@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>MoonTalk</title>
-	<link rel="stylesheet" type="text/css" href="../../css/room_list.css">
+	<link rel="stylesheet" type="text/css" href="./css/room_list.css">
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
 	<!--jQuery link-->     
         <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
@@ -10,39 +10,10 @@
         
         <link type="text/css" rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
 
-	<script>
-	$('.item1').click(function(){
-			if($(this).attr('value')=="1"){
-				var pass = prompt('請輸入密碼');
-				$.ajax({
-		            type: "POST",
-		            url: '<?php echo site_url('room/check'); ?>',
-		            data: {
-		            	'value': pass
-		            }
-		        })
-			}
-	    });
-	</script>
-	<script>
-           $(function() { 
-                $(".addRoom").dialog({ 
-                    autoOpen: false, 
-                    show: null, 
-                    hide: null,
-                    dialogClass: "dlg-no-close",
-                    modal: true,
-                    resizable: false
-                }); 
-                $(".roomAdd").click(function() { 
-                    $(".addRoom").dialog("open"); 
-                    return false; 
-                });                 
-            });   
-        </script>
+
 </head>
 <body>
-	<div class="bg"><img src="../../img_source/roomList/roomListBG.png"></div>
+	<div class="bg"><img src="./img_source/roomList/roomListBG.png"></div>
 	<div id="showRoomListBlock">
 		<div class="roomListBar">
 			<div class="item"><h1>會議室編號</h1></div>
@@ -68,17 +39,7 @@
 			</div>			
 		</div>
 		<div class="addRoomBlock">
-			<form class="addRoom" title="建立新會議室">
-				
-                <?php
-				$attributes = array(
-					'id' => 'add',
-					'name' => 'add',
-					'method' => 'post'
-				);
-				echo form_open('room/add/',$attributes);
-				?>
-				
+			<form class="addRoom" title="建立新會議室" action="<?php echo site_url().'/room/add';?>" method="post">			
 				<hc>房間名稱:</hc>
 				<input type="text" name="name" size="8"><br>
 				<hc>私密房間:</hc>
@@ -87,13 +48,13 @@
 				<hc>房間密碼:</hc>
 				<input type="password" name="pass" size="8"><br>
 				<div class="text-align-center">
-					<input type="submit" value="add">
+					<input id="submitRoom" type="submit" value="add">
 				</div>				
             </form>
 		</div>
 		<div class="addRoomBar">
 			<a href="" class="roomAdd">
-				<img src="../../img_source/roomList/roomAdd.png" alt="roomAdd">
+				<img src="./img_source/roomList/roomAdd.png" alt="roomAdd">
 				<h1>新增會議室</h1>
 			</a>
 		</div>
@@ -101,7 +62,7 @@
 	<div id="userInfoBlock">
 		<div class="userInfo">
 			<div class="userIcon">
-				<img src="../../img_source/login/img_1.png">
+				<img src="./img_source/login/img_1.png">
 			</div>
 			<div class="username">
 				<p>username:</p>
@@ -121,4 +82,31 @@
 </body>
 </html>
 
-
+<script>
+	$(".item1").click(function(){
+			if($(this).attr('value')=="1"){
+				var pass = prompt('請輸入密碼');
+				$.ajax({
+		            type: "POST",
+		            url: '<?php echo site_url('room/check'); ?>',
+		            data: {
+		            	'value': pass
+		            }
+		        })
+			}
+	    });
+           $(function() { 
+                $(".addRoom").dialog({ 
+                    autoOpen: false, 
+                    show: null, 
+                    hide: null,
+                    dialogClass: "dlg-no-close",
+                    modal: true,
+                    resizable: false
+                }); 
+                $(".roomAdd").click(function() { 
+                    $(".addRoom").dialog("open"); 
+                    return false; 
+                });                 
+            });
+</script>
