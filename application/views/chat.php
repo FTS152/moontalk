@@ -202,14 +202,45 @@
         <img src="../img_source/roomList/roomListBG.png" alt="bg">
     </div>
     <div id="chatBlock">
-        <div id="chatmessage"></div>
+        <div id="chatmessageBlock">
+            <div id="chatmessage">               
+                <div class="user">
+                    <div class="userhead">
+                        <img src="../img_source/login/img_1.png">
+                        <hc>name</hc>
+                    </div>
+                    <div class="userchat">
+                        <span>
+                            test
+                        </span>
+                    </div>                    
+                </div>  
+                <div class="clearfix"></div>
+
+                <div class="otheruser">
+                    <div class="otheruserhead">
+                        <img src="../img_source/login/img_1.png">
+                        <hc>name</hc>
+                    </div>
+                    <div class="otheruserchat">
+                        <span>
+                            test
+                        </span>
+                    </div>                    
+                </div>  
+                <div class="clearfix"></div>
+
+            </div>
+        </div>
         <div class="inputbox">
             <input type="text" id="msgbox" name="msgbox">
             <button id="send-btn" class="btn_">送出</button>
             <button id="leave-btn" class="btn_">登出</button>
             <button id="export" class="btn_" > <a href="<?php echo site_url().'/chat/export';?>">匯出會議記錄</a> </button>
-        </div>
+        </div>  
     </div>
+
+      
     <div id="userInfoBlock">
         <div class="userInfo">
             <div class="userIcon">

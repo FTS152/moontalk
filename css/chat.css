@@ -19,25 +19,107 @@ button:focus{outline: none;}
 	width: 60%;	
 	float: left;
 	margin-left: 5%;
-	margin-top: 55px;
+	margin-top: 55px;	
 }
-#chatmessage{
-	height: 530px;	
+#chatmessageBlock{
+	height: 529px;	
 	padding: 15px 15px;	
+	margin: 0 auto;
 	border: 2px black solid;
 	border-radius: 10px;
 	border-bottom-left-radius: 0px;
 	border-bottom-right-radius: 0px;
 	border-bottom-width: 0px;
 	background-color: rgba(0,0,0,0.8);
-	transition: 500ms;
+	transition: 500ms;		
+}
+#chatmessage{
+	width: 100%;
+	height: 499px;
+	margin: 0 auto;
 	overflow: auto;
 }
-.inputbox{
-	width: 100%;
-	height: 40px;
+/**/
+.user{min-height: 110px;width:100%; float: right;text-align: right;}
+.userhead{
+	width: 100px;
+	text-align: center;
+	float: right;
+	color: white;	
+	overflow: hidden;	
+	text-overflow:ellipsis;
+}
+.userhead img{
+	border: 2px white solid;
+	border-radius: 3px;
+	margin-top: 5px;
+}
+.userhead hc{
+	font-family: monospace,Microsoft JhengHei;
+	width: 80px;
+	font-size: 15px;
+	color: white;
+	overflow: hidden;	
+	text-overflow:ellipsis;
+	white-space: nowrap;
+	list-style:disc inside none;
+}
+.userchat{
+	max-width: 400px;
+	display: inline-block;
+	text-align: left;
+	background-color: #64a600;
+	margin: 5px 0;
+	border-radius: 10px;
+	padding: 3px 5px;
+}
+.userchat span{
+	font-family: monospace,Microsoft JhengHei;
+	font-size: 20px;
+	color: white;
+	word-wrap:break-word; 
+}
+/**/
+.otheruser{min-height: 110px;width:100%; float: left;text-align: left;}
+.otheruserhead{
+	margin: 0 10px;
+	width: 80px;
+	text-align: center;
+	float: left;
+	color: white;
+	overflow: hidden;	
+	text-overflow:ellipsis;
+}
+.otheruserhead img{
+	border: 2px white solid;
+	border-radius: 3px;
+	margin-top: 5px;
+}
+.otheruserhead hc{
+	font-family: monospace,Microsoft JhengHei;	
+	font-size: 15px;	
+	color: white;	
+}
+.otheruserchat{
+	max-width: 400px;
+	display: inline-block;
+	text-align: left;
+	background-color: #003d79;
+	margin: 5px 0;
+	border-radius: 10px;
+	padding: 3px 5px;
+}
+.otheruserchat span{
+	font-family: monospace,Microsoft JhengHei;
+	font-size: 20px;
+	color: white;
+	word-wrap:break-word; 
+}
+.clearfix{clear: both;}
+/**/
+.inputbox{		
 	border: 2px black solid;
-	padding: 5px 5px;
+	padding: 8 8px;
 	border-radius: 10px;
 	border-top-width: 0px;
 	border-top-left-radius: 0px;
@@ -129,7 +211,7 @@ input[type="text"]{
 	margin: 3px 0;
 }
 /*hover 效果*/
-#chatmessage:hover{background-color: rgba(0,0,0,0.9);}
+#chatmessageBlock:hover{background-color: rgba(0,0,0,0.9);}
 #userInfoBlock:hover{background-color: rgba(0,0,0,0.9);}
 #onlineBlock:hover{background-color: rgba(0,0,0,0.9);}
 /*自定義滾輪*/
@@ -140,3 +222,4 @@ input[type="text"]{
 #chatmessage::-webkit-scrollbar-button{display: none;}
 #chatmessage::-webkit-scrollbar-thumb{background-color: #272727;transition: 500ms;}
 #chatmessage::-webkit-scrollbar-thumb:hover{background-color: #4f4f4f;}
+
