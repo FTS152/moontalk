@@ -1,0 +1,114 @@
+body{
+	margin 0;
+}
+input:focus{outline: none;}
+button:focus{outline: none;}
+.bg{
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	z-index: -999;
+}
+.bg img{
+	min-height: 100%;
+	width: 100%;
+}
+#chatBlock{
+	width: 60%;
+	height: 545px;
+	margin-left: 5%;
+	margin-top: 55px;
+	padding: 15px 15px;
+	float: left;
+	border: 2px black solid;
+	border-radius: 20px;
+	background-color: rgba(0,0,0,0.7);
+	transition: 500ms;
+}
+.inputbox{
+	position: relative;
+	top: 480px;
+	font-family: monospace,Microsoft JhengHei;
+	color: white;
+}
+#msgbox{
+	width: 75%;
+}
+input[type="text"]{	
+	font-family: monospace,Microsoft JhengHei;
+	color: black;
+	font-size: 15px;
+	border: 1px white solid;
+	background-color: #adadad;	
+	border-radius: 5px;
+}
+.btn_{
+	border: 1px white solid;
+	border-radius: 5px;
+}
+#send-btn{
+	background-color: #64a600;	
+}
+#leave-btn{
+	background-color: #64a600;	
+}
+#export{
+	background-color: #003d79;	
+}
+/**/
+#userInfoBlock{
+	width: 25%;
+	height: 200px;
+	margin-right: 5%;
+	margin-top: 55px;
+	float: right;
+	border: 2px black solid;
+	border-radius: 20px;
+	background-color: rgba(0,0,0,0.7);
+	transition: 500ms;
+}
+.userInfo .userIcon{
+	width: 40%;
+	text-align: center;
+	padding-top: 65px;
+	float: left;
+}
+.userIcon img{
+	border: 3px white solid;
+	border-radius: 10px;	
+}
+.userInfo .username{
+	width: 60%;	
+	padding-top: 65px;
+	float: right;
+	font-family: monospace,Microsoft JhengHei;
+	font-size: 15px;
+	color: white;
+}
+#onlineBlock{
+	width: 25%;
+	height: 300px;
+	margin-right: 5%;
+	margin-top: 47px;
+	padding: 15px 15px;
+	float: right;
+	border: 2px black solid;
+	border-radius: 20px;
+	background-color: rgba(0,0,0,0.7);
+	transition: 500ms;
+}
+#onlineBlock hc{
+	font-size: 20px;
+	font-family: monospace,Microsoft JhengHei;
+	color: white;
+}
+#onlineBlock hr{
+	border:1px dashed white;
+	margin: 3px 0;
+}
+/*hover 效果*/
+#chatBlock:hover{background-color: rgba(0,0,0,0.9);}
+#userInfoBlock:hover{background-color: rgba(0,0,0,0.9);}
+#onlineBlock:hover{background-color: rgba(0,0,0,0.9);}

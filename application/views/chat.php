@@ -3,59 +3,14 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MoonTalk</title>
+    <link rel="stylesheet" type="text/css" href="../../css/chat.css">
     <!-- 最新編譯和最佳化的 CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?php echo base_url().'css/style.default.css';?>" type="text/css" />
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript" src=" http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.24/jquery-ui.min.js"></script>
-</head>
-<body>
-<div class="bodywrapper">
-    <div class="centercontent">
-        <div class="pageheader notab">
-                <h1 class="pagetitle">OOXX.Talk</h1>
-                <span class="pagedesc">這是一個簡單的聊天室</span>
-        </div><!--pageheader-->
 
-        <div id="contentwrapper" class="contentwrapper withrightpanel">
-
-            <div class="subcontent chatcontent">
-
-                <div id="chatmessage" class="chatmessage radius2">
-                    <div id="chatmessageinner"></div><!--chatmessageinner-->
-                </div><!--chatmessage-->
-                <br>
-                <span id="welcome_str"></span>
-                <div class="messagebox radius2">
-                    <span class="inputbox" style="width:70%;float: left;">
-                        <input type="text" id="msgbox" name="msgbox"  />
-                    </span>
-                    <button id="send-btn" class="btn btn-warning" style="float: left;margin-left: 20px;">送出</button>
-                    <button class="btn btn-danger" id="leave-btn" style="float: left;margin-left: 20px;">登出/離開</button>
-                    <?php echo anchor('chat/export','匯出'); ?>
-                </div>
-
-            </div><!--subcontent-->
-
-        </div><!--contentwrapper-->
-
-        <div class="rightpanel">
-            <div class="rightpanelinner">
-                <div class="widgetbox uncollapsible">
-                    <div class="title"><h4>線上使用者</h4></div>
-                    <div class="widgetcontent nopadding">
-                        <ul class="contactlist">
-                        </ul>
-                    </div><!--widgetcontent-->
-                </div><!--widgetbox-->
-            </div><!--rightpanelinner-->
-        </div><!--rightpanel-->
-
-    </div><!-- centercontent -->
-</div>
-
-<script type="text/javascript"></script>
-<script language="javascript" type="text/javascript">
+    <script language="javascript" type="text/javascript">
     $(document).ready(function(){ 
         //create a new WebSocket object.(建立socket物件)
         var wsUri = "<?php echo $socket_url;?>";
@@ -96,8 +51,7 @@
                             alert('Error!'); 
                             location.href = '../room';
                         }
-                    })
-                    $("#welcome_str").html('歡迎 <b>'+name+' </b>, 請於下方輸入留言:');
+                    })                    
                 }
             }
         }
@@ -212,10 +166,43 @@
             } 
         };
 
-        websocket.onerror	= function(ev){$('#chatmessage').append("<div class=\"system_error\">Error Occurred - "+ev.data+"</div>");}; //與server連接發生錯誤時
-        websocket.onclose 	= function(ev){$('#chatmessage').append("<div class=\"system_msg\">Server Closed</div>");};  //server被關閉時
+        websocket.onerror   = function(ev){$('#chatmessage').append("<div class=\"system_error\">Error Occurred - "+ev.data+"</div>");}; //與server連接發生錯誤時
+        websocket.onclose   = function(ev){$('#chatmessage').append("<div class=\"system_msg\">Server Closed</div>");};  //server被關閉時
 
     });
-</script>
+    </script>
+</head>
+<body>
+    <div class="bg">
+        <img src="../../img_source/roomList/roomListBG.png" alt="bg">
+    </div>
+    <div id="chatBlock">
+        <div id="chatmessage"></div>
+        <div class="inputbox">
+            <input type="text" id="msgbox" name="msgbox">
+            <button id="send-btn" class="btn_">送出</button>
+            <button id="leave-btn" class="btn_">登出</button>
+            <button id="export" class="btn_" onclick="<?php echo anchor('chat/export','匯出'); ?>">匯出會議記錄               
+            </button>
+        </div>
+    </div>
+    <div id="userInfoBlock">
+        <div class="userInfo">
+            <div class="userIcon">
+                <img src="../../img_source/login/img_1.png">
+            </div>
+            <div class="username">
+                <p>username:</p>
+                <p>iNoyoka</p>
+            </div>
+        </div>  
+    </div>
+    <div id="onlineBlock">
+        <hc>線上成員</hc>
+        <hr>
+        <div>
+            <ul class="contactlist"></ul>
+        </div>
+    </div>
 </body>
 </html>
